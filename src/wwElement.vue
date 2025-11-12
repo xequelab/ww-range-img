@@ -4,7 +4,7 @@
     <div class="control-area" :style="controlAreaStyle">
       <!-- Y Label (Top) -->
       <div v-if="showLabels" class="label label-top" :style="labelStyle">
-        {{ yLabel }}: <span :style="valueStyle">{{ currentY !== null ? currentY : '' }}</span><span v-if="currentY !== null && showPercentage">%</span>
+        {{ yLabel }}: <span :style="valueStyle">{{ currentY ?? '' }}</span><span v-if="currentY !== null && showPercentage">%</span>
       </div>
 
       <!-- Cross Layout -->
@@ -74,7 +74,7 @@
 
       <!-- X Label (Bottom) -->
       <div v-if="showLabels" class="label label-bottom" :style="labelStyle">
-        {{ xLabel }}: <span :style="valueStyle">{{ currentX !== null ? currentX : '' }}</span><span v-if="currentX !== null">px</span>
+        {{ xLabel }}: <span :style="valueStyle">{{ currentX ?? '' }}</span><span v-if="currentX !== null">px</span>
       </div>
     </div>
 
