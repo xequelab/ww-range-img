@@ -212,7 +212,7 @@ export default {
 
     const incrementY = () => {
       if (isEditing.value) return;
-      const baseValue = currentY.value ?? 50;
+      const baseValue = currentY.value ?? 0;
       const newValue = Math.min(100, baseValue + step.value);
       setCurrentY(newValue);
       if (props.content?.enableRealTimeUpdate) {
@@ -222,7 +222,7 @@ export default {
 
     const decrementY = () => {
       if (isEditing.value) return;
-      const baseValue = currentY.value ?? 50;
+      const baseValue = currentY.value ?? 0;
       const newValue = Math.max(0, baseValue - step.value);
       setCurrentY(newValue);
       if (props.content?.enableRealTimeUpdate) {
