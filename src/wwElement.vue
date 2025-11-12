@@ -78,37 +78,6 @@
       </div>
     </div>
 
-    <!-- Range Sliders -->
-    <div class="sliders-container" :style="slidersContainerStyle">
-      <!-- X Range -->
-      <div class="slider-group">
-        <input
-          type="range"
-          v-model.number="currentX"
-          min="0"
-          max="100"
-          :step="step"
-          class="range-slider range-x"
-          :style="rangeSliderStyle"
-          @input="onXChange"
-        />
-      </div>
-
-      <!-- Y Range -->
-      <div class="slider-group">
-        <input
-          type="range"
-          v-model.number="currentY"
-          min="0"
-          max="100"
-          :step="step"
-          class="range-slider range-y"
-          :style="rangeSliderStyle"
-          @input="onYChange"
-        />
-      </div>
-    </div>
-
     <!-- Action Buttons -->
     <div class="button-group" :style="buttonGroupStyle">
       <button
@@ -257,20 +226,6 @@ export default {
       }
     };
 
-    const onXChange = () => {
-      if (isEditing.value) return;
-      if (props.content?.enableRealTimeUpdate) {
-        emitChange();
-      }
-    };
-
-    const onYChange = () => {
-      if (isEditing.value) return;
-      if (props.content?.enableRealTimeUpdate) {
-        emitChange();
-      }
-    };
-
     const emitChange = () => {
       emit('trigger-event', {
         name: 'change',
@@ -367,15 +322,6 @@ export default {
       fontWeight: props.content?.valueFontWeight || 600
     }));
 
-    const slidersContainerStyle = computed(() => ({
-      gap: props.content?.spacing || '8px'
-    }));
-
-    const rangeSliderStyle = computed(() => ({
-      '--slider-color': props.content?.arrowButtonColor || '#007bff',
-      '--slider-track-color': props.content?.crossBorderColor || '#e0e0e0'
-    }));
-
     const buttonGroupStyle = computed(() => ({
       gap: props.content?.buttonGap || '12px'
     }));
@@ -411,8 +357,6 @@ export default {
       decrementX,
       incrementY,
       decrementY,
-      onXChange,
-      onYChange,
       handleSave,
       handleCancel,
       startContinuous,
@@ -426,8 +370,6 @@ export default {
       arrowButtonStyle,
       labelStyle,
       valueStyle,
-      slidersContainerStyle,
-      rangeSliderStyle,
       buttonGroupStyle,
       cancelButtonStyle,
       saveButtonStyle
@@ -513,73 +455,6 @@ export default {
 .center-point {
   border-radius: 50%;
   flex-shrink: 0;
-}
-
-.sliders-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 300px;
-}
-
-.slider-group {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.range-slider {
-  width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  outline: none;
-  -webkit-appearance: none;
-  appearance: none;
-  background: var(--slider-track-color);
-  cursor: pointer;
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--slider-color);
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &:hover {
-      transform: scale(1.2);
-    }
-  }
-
-  &::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--slider-color);
-    cursor: pointer;
-    border: none;
-    transition: all 0.2s ease;
-
-    &:hover {
-      transform: scale(1.2);
-    }
-  }
-
-  &::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--slider-track-color);
-  }
-
-  &::-moz-range-track {
-    width: 100%;
-    height: 6px;
-    border-radius: 3px;
-    background: var(--slider-track-color);
-  }
 }
 
 .button-group {
