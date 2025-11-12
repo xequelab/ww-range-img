@@ -287,7 +287,7 @@ export default {
     }));
 
     const controlAreaStyle = computed(() => ({
-      gap: props.content?.spacing || '8px'
+      gap: props.content?.labelSpacing || '16px'
     }));
 
     const crossContainerStyle = computed(() => ({
@@ -314,7 +314,10 @@ export default {
 
     const labelStyle = computed(() => ({
       color: props.content?.labelColor || '#333333',
-      fontSize: props.content?.labelFontSize || '14px'
+      fontSize: props.content?.labelFontSize || '14px',
+      backgroundColor: props.content?.labelBackgroundColor || '#ffffff',
+      padding: props.content?.labelPadding || '8px 16px',
+      borderRadius: props.content?.labelBorderRadius || '4px'
     }));
 
     const valueStyle = computed(() => ({
@@ -395,14 +398,8 @@ export default {
 .label {
   text-align: center;
   user-select: none;
-
-  &.label-top {
-    margin-bottom: 8px;
-  }
-
-  &.label-bottom {
-    margin-top: 8px;
-  }
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-block;
 }
 
 .cross-container {

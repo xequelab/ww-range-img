@@ -751,6 +751,83 @@ export default {
         tooltip: 'Font weight for position values'
       }
       /* wwEditor:end */
+    },
+    labelBackgroundColor: {
+      label: { en: 'Label Background Color' },
+      type: 'Color',
+      section: 'controls',
+      bindable: true,
+      defaultValue: '#ffffff',
+      options: {
+        nullable: true
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Background color for labels'
+      },
+      propertyHelp: {
+        tooltip: 'Background color of position labels for better readability'
+      }
+      /* wwEditor:end */
+    },
+    labelPadding: {
+      label: { en: 'Label Padding' },
+      type: 'Length',
+      section: 'controls',
+      bindable: true,
+      defaultValue: '8px 16px',
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Padding for labels (e.g., "8px 16px")'
+      },
+      propertyHelp: {
+        tooltip: 'Internal padding of position labels'
+      }
+      /* wwEditor:end */
+    },
+    labelBorderRadius: {
+      label: { en: 'Label Border Radius' },
+      type: 'Length',
+      section: 'controls',
+      bindable: true,
+      defaultValue: '4px',
+      options: {
+        unitChoices: [
+          { value: 'px', label: 'px', min: 0, max: 50 }
+        ]
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Border radius for labels (e.g., "4px")'
+      },
+      propertyHelp: {
+        tooltip: 'Rounded corners of position labels'
+      }
+      /* wwEditor:end */
+    },
+    labelSpacing: {
+      label: { en: 'Label Spacing' },
+      type: 'Length',
+      section: 'layout',
+      bindable: true,
+      defaultValue: '16px',
+      options: {
+        unitChoices: [
+          { value: 'px', label: 'px', min: 0, max: 100 }
+        ]
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Spacing between labels and cross (e.g., "16px")'
+      },
+      propertyHelp: {
+        tooltip: 'Distance between position labels and the cross control'
+      }
+      /* wwEditor:end */
     }
   }
 };
