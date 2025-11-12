@@ -4,7 +4,7 @@
     <div class="control-area" :style="controlAreaStyle">
       <!-- Y Label (Top) -->
       <div v-if="showLabels" class="label label-top" :style="labelStyle">
-        {{ yLabel }}: <span :style="valueStyle">{{ currentY }}</span><span v-if="showPercentage">%</span>
+        {{ yLabel }}: <span :style="valueStyle">{{ currentY !== null ? currentY : '' }}</span><span v-if="currentY !== null && showPercentage">%</span>
       </div>
 
       <!-- Cross Layout -->
@@ -74,7 +74,7 @@
 
       <!-- X Label (Bottom) -->
       <div v-if="showLabels" class="label label-bottom" :style="labelStyle">
-        {{ xLabel }}: <span :style="valueStyle">{{ currentX }}</span><span v-if="showPercentage">%</span>
+        {{ xLabel }}: <span :style="valueStyle">{{ currentX !== null ? currentX : '' }}</span><span v-if="currentX !== null">px</span>
       </div>
     </div>
 
@@ -129,32 +129,32 @@ export default {
       return false;
     });
 
-    // Component variables
+    // Component variables - start with null values
     const { value: currentX, setValue: setCurrentX } = wwLib.wwVariable.useComponentVariable({
       uid: props.uid,
       name: 'currentX',
       type: 'number',
-      defaultValue: computed(() => props.content?.xValue || 50)
+      defaultValue: computed(() => props.content?.xValue ?? null)
     });
 
     const { value: currentY, setValue: setCurrentY } = wwLib.wwVariable.useComponentVariable({
       uid: props.uid,
       name: 'currentY',
       type: 'number',
-      defaultValue: computed(() => props.content?.yValue || 50)
+      defaultValue: computed(() => props.content?.yValue ?? null)
     });
 
     // Store initial values for cancel
-    const initialX = ref(props.content?.xValue || 50);
-    const initialY = ref(props.content?.yValue || 50);
+    const initialX = ref(props.content?.xValue ?? null);
+    const initialY = ref(props.content?.yValue ?? null);
 
     // Watch for prop changes to update initial values
     watch(() => [props.content?.xValue, props.content?.yValue], ([newX, newY]) => {
-      if (newX !== undefined) {
+      if (newX !== undefined && newX !== null) {
         initialX.value = newX;
         setCurrentX(newX);
       }
-      if (newY !== undefined) {
+      if (newY !== undefined && newY !== null) {
         initialY.value = newY;
         setCurrentY(newY);
       }
@@ -192,7 +192,8 @@ export default {
 
     const incrementX = () => {
       if (isEditing.value) return;
-      const newValue = Math.min(100, currentX.value + step.value);
+      const baseValue = currentX.value ?? 0;
+      const newValue = baseValue + step.value;
       setCurrentX(newValue);
       if (props.content?.enableRealTimeUpdate) {
         emitChange();
@@ -201,7 +202,8 @@ export default {
 
     const decrementX = () => {
       if (isEditing.value) return;
-      const newValue = Math.max(0, currentX.value - step.value);
+      const baseValue = currentX.value ?? 0;
+      const newValue = Math.max(0, baseValue - step.value);
       setCurrentX(newValue);
       if (props.content?.enableRealTimeUpdate) {
         emitChange();
@@ -210,7 +212,8 @@ export default {
 
     const incrementY = () => {
       if (isEditing.value) return;
-      const newValue = Math.min(100, currentY.value + step.value);
+      const baseValue = currentY.value ?? 50;
+      const newValue = Math.min(100, baseValue + step.value);
       setCurrentY(newValue);
       if (props.content?.enableRealTimeUpdate) {
         emitChange();
@@ -219,7 +222,8 @@ export default {
 
     const decrementY = () => {
       if (isEditing.value) return;
-      const newValue = Math.max(0, currentY.value - step.value);
+      const baseValue = currentY.value ?? 50;
+      const newValue = Math.max(0, baseValue - step.value);
       setCurrentY(newValue);
       if (props.content?.enableRealTimeUpdate) {
         emitChange();
@@ -271,7 +275,7 @@ export default {
 
     const setPosition = (x, y) => {
       if (isEditing.value) return false;
-      if (x !== undefined && x >= 0 && x <= 100) {
+      if (x !== undefined && x >= 0) {
         setCurrentX(x);
       }
       if (y !== undefined && y >= 0 && y <= 100) {
@@ -283,7 +287,7 @@ export default {
     // Computed styles
     const containerStyle = computed(() => ({
       padding: props.content?.containerPadding || '24px',
-      gap: props.content?.containerGap || '16px'
+      gap: props.content?.buttonsSpacing || '24px'
     }));
 
     const controlAreaStyle = computed(() => ({

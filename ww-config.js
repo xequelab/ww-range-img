@@ -61,19 +61,18 @@ export default {
       section: 'settings',
       bindable: true,
       responsive: true,
-      defaultValue: 50,
+      defaultValue: null,
       options: {
         min: 0,
-        max: 100,
         step: 1
       },
       /* wwEditor:start */
       bindingValidation: {
         type: 'number',
-        tooltip: 'X position value from 0 to 100'
+        tooltip: 'X position value in pixels'
       },
       propertyHelp: {
-        tooltip: 'Initial X position (0-100)'
+        tooltip: 'Initial X position in pixels (starts empty)'
       }
       /* wwEditor:end */
     },
@@ -83,7 +82,7 @@ export default {
       section: 'settings',
       bindable: true,
       responsive: true,
-      defaultValue: 50,
+      defaultValue: null,
       options: {
         min: 0,
         max: 100,
@@ -95,7 +94,7 @@ export default {
         tooltip: 'Y position value from 0 to 100'
       },
       propertyHelp: {
-        tooltip: 'Initial Y position (0-100)'
+        tooltip: 'Initial Y position (0-100, starts empty)'
       }
       /* wwEditor:end */
     },
@@ -813,7 +812,7 @@ export default {
       type: 'Length',
       section: 'layout',
       bindable: true,
-      defaultValue: '16px',
+      defaultValue: '12px',
       options: {
         unitChoices: [
           { value: 'px', label: 'px', min: 0, max: 100 }
@@ -822,10 +821,31 @@ export default {
       /* wwEditor:start */
       bindingValidation: {
         type: 'string',
-        tooltip: 'Spacing between labels and cross (e.g., "16px")'
+        tooltip: 'Spacing between labels and cross (e.g., "12px")'
       },
       propertyHelp: {
         tooltip: 'Distance between position labels and the cross control'
+      }
+      /* wwEditor:end */
+    },
+    buttonsSpacing: {
+      label: { en: 'Buttons Spacing' },
+      type: 'Length',
+      section: 'layout',
+      bindable: true,
+      defaultValue: '24px',
+      options: {
+        unitChoices: [
+          { value: 'px', label: 'px', min: 0, max: 100 }
+        ]
+      },
+      /* wwEditor:start */
+      bindingValidation: {
+        type: 'string',
+        tooltip: 'Spacing between labels and buttons (e.g., "24px")'
+      },
+      propertyHelp: {
+        tooltip: 'Distance between control area and action buttons'
       }
       /* wwEditor:end */
     }
